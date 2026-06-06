@@ -1,0 +1,49 @@
+name: Database Monthly Backup
+
+on:
+  schedule:
+    # Run at 00:00 on day 1 of every month
+    - cron: '0 0 1 * *'
+  # Allow manual execution via Github Actions UI
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    
+    # Permissions required to write/commit back to the repository
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Mongoose & Dotenv
+        run: |
+          npm install mongoose dotenv
+
+      - name: Run Database Backup Script
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: |
+          node scripts/backup.js
+
+      - name: Commit and Push Database Backup
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backups/backup.json
+          
+          # Only commit and push if there are actual database modifications
+          if git diff --cached --quiet; then
+            echo "No database changes detected. Backup is identical to last month."
+          else
+            git commit -m "Auto-backup database: $(date +'%Y-%m-%d')"
+            git push
+          fi
