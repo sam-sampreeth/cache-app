@@ -5,7 +5,7 @@ import { detectPlatform } from '../store/platform';
 import { vault, storage } from '../store/vault';
 import { useToast } from '../components/Toast';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+const API_BASE = (import.meta.env.VITE_API_BASE || 'http://localhost:5000').replace(/\/$/, '');
 
 
 const SUGGESTIONS = [

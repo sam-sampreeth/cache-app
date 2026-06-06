@@ -1,6 +1,6 @@
 // vault.js — backend-connected store with useSyncExternalStore
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+const API_BASE = (import.meta.env.VITE_API_BASE || 'http://localhost:5000').replace(/\/$/, '');
 
 let state = { workspaceId: '', collections: [], items: [] };
 let listeners = new Set();
