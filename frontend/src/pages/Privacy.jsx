@@ -62,14 +62,14 @@ export default function Privacy({ onNavigate }) {
           
           <div className="flex items-center gap-5 text-xs font-mono">
             <a 
-              href="#workflow" 
+              href="/#workflow" 
               onClick={(e) => handleLinkClick(e, 'workflow')}
               className="text-neutral-400 hover:text-neutral-200 transition-colors"
             >
               How it works
             </a>
             <a 
-              href="#features" 
+              href="/#features" 
               onClick={(e) => handleLinkClick(e, 'features')}
               className="text-neutral-400 hover:text-neutral-200 transition-colors"
             >
@@ -393,7 +393,7 @@ export default function Privacy({ onNavigate }) {
                   </li>
                   <li>
                     <a 
-                      href="#workflow" 
+                      href="/#workflow" 
                       onClick={(e) => handleLinkClick(e, 'workflow')}
                       className="hover:text-white hover:underline transition-all"
                     >
@@ -402,7 +402,7 @@ export default function Privacy({ onNavigate }) {
                   </li>
                   <li>
                     <a 
-                      href="#features" 
+                      href="/#features" 
                       onClick={(e) => handleLinkClick(e, 'features')}
                       className="hover:text-white hover:underline transition-all"
                     >

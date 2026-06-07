@@ -134,7 +134,7 @@ export default function QuickAdd({ collections, onAdd, activeCollectionId }) {
   return (
     <form onSubmit={handleSubmit} className="border border-white/15 bg-[#0a0a0c]">
 
-      {/* Row 1 — URL */}
+      {/* Row 1 - URL */}
       <div className="flex items-center gap-2.5 px-3.5 py-2.5 border-b border-white/[0.07]">
         <Link className="w-3.5 h-3.5 text-neutral-500 flex-shrink-0" />
         <input
@@ -153,7 +153,7 @@ export default function QuickAdd({ collections, onAdd, activeCollectionId }) {
         )}
       </div>
 
-      {/* Row 2 — Title */}
+      {/* Row 2 - Title */}
       <div className="flex items-center gap-2.5 px-3.5 py-2 border-b border-white/[0.07]">
         <Type className="w-3.5 h-3.5 text-neutral-500 flex-shrink-0" />
         <input
@@ -165,7 +165,7 @@ export default function QuickAdd({ collections, onAdd, activeCollectionId }) {
         />
       </div>
 
-      {/* Row 3 — Note */}
+      {/* Row 3 - Note */}
       <div className="flex items-start gap-2.5 px-3.5 py-2 border-b border-white/[0.07]">
         <FileText className="w-3.5 h-3.5 text-neutral-500 flex-shrink-0 mt-0.5" />
         <textarea
@@ -177,7 +177,7 @@ export default function QuickAdd({ collections, onAdd, activeCollectionId }) {
         />
       </div>
 
-      {/* Row 4 — Thumbnail (non-YouTube, non-note only) */}
+      {/* Row 4 - Thumbnail (non-YouTube, non-note only) */}
       {url.trim() && detectedType !== 'youtube' && detectedType !== 'note' && (
         <div className="flex items-center gap-2.5 px-3.5 py-2 border-b border-white/[0.07]">
           <Image className="w-3.5 h-3.5 text-neutral-500 flex-shrink-0" />
@@ -191,7 +191,7 @@ export default function QuickAdd({ collections, onAdd, activeCollectionId }) {
         </div>
       )}
 
-      {/* Row 5 — Tags + collection + actions */}
+      {/* Row 5 - Tags + collection + actions */}
       <div className="flex flex-wrap items-center gap-2 px-3.5 py-2.5 bg-neutral-950/40 border-t border-white/[0.07]">
         <div className="flex items-center gap-2.5 flex-1 min-w-[120px]">
           <Tag className="w-3.5 h-3.5 text-neutral-500 flex-shrink-0" />

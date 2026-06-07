@@ -20,7 +20,7 @@ function createDemoItems(workspaceId, colMap) {
     {
       type: 'youtube',
       url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      title: 'Never Gonna Give You Up — Rick Astley',
+      title: 'Never Gonna Give You Up - Rick Astley',
       description: "Rick Astley's classic 1987 hit. Possibly the internet's most legendary video.",
       thumbnail: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
       tags: ['classic', 'video'],
@@ -32,7 +32,7 @@ function createDemoItems(workspaceId, colMap) {
     {
       type: 'url',
       url: 'https://react.dev/learn',
-      title: 'React Docs — Learn React',
+      title: 'React Docs - Learn React',
       description: 'The official React documentation. Start here if you want to learn React from scratch.',
       thumbnail: null,
       tags: ['docs', 'frontend'],
@@ -56,7 +56,7 @@ function createDemoItems(workspaceId, colMap) {
     {
       type: 'spotify',
       url: 'https://open.spotify.com/album/4aawyAB9vmqN3uQ7FjRGTy',
-      title: 'Abbey Road — The Beatles',
+      title: 'Abbey Road - The Beatles',
       description: "The Beatles' eleventh studio album. Released in 1969.",
       thumbnail: null,
       tags: ['album'],
@@ -92,7 +92,7 @@ function createDemoItems(workspaceId, colMap) {
     {
       type: 'x',
       url: 'https://x.com/levelsio/status/1750000000000000000',
-      title: 'Thread on building indie products — @levelsio',
+      title: 'Thread on building indie products - @levelsio',
       description: 'Levels.io shares insights from years of building profitable solo products.',
       thumbnail: null,
       tags: ['thread', 'indie'],
@@ -116,7 +116,7 @@ function createDemoItems(workspaceId, colMap) {
     {
       type: 'instagram',
       url: 'https://www.instagram.com/natgeo/',
-      title: '@natgeo — National Geographic',
+      title: '@natgeo - National Geographic',
       description: 'Inspiring people to care about the planet since 1888. Photography, science, and exploration.',
       thumbnail: null,
       tags: [],
@@ -128,7 +128,7 @@ function createDemoItems(workspaceId, colMap) {
     {
       type: 'url',
       url: 'https://www.tiktok.com/@nasa',
-      title: '@nasa — NASA on TikTok',
+      title: '@nasa - NASA on TikTok',
       description: 'Space is open to everyone. Explore the universe with NASA.',
       thumbnail: null,
       tags: [],

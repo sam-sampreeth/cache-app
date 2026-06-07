@@ -22,7 +22,7 @@ export function ToastProvider({ children }) {
     <ToastCtx.Provider value={push}>
       {children}
 
-      {/* Toast stack — fixed bottom-right */}
+      {/* Toast stack - fixed bottom-right */}
       <div className="fixed bottom-5 right-5 z-[9999] flex flex-col gap-2 pointer-events-none">
         {toasts.map(toast => (
           <div

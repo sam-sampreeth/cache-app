@@ -15,7 +15,9 @@ export default function App() {
   useEffect(() => {
     const handlePop = () => {
       setCurrentPath(window.location.pathname);
-      window.scrollTo(0, 0);
+      if (!storage.get('scrollToSection')) {
+        window.scrollTo(0, 0);
+      }
     };
     window.addEventListener('popstate', handlePop);
     return () => window.removeEventListener('popstate', handlePop);
@@ -24,7 +26,9 @@ export default function App() {
   const navigateTo = (path) => {
     window.history.pushState({}, '', path);
     setCurrentPath(path);
-    window.scrollTo(0, 0);
+    if (!storage.get('scrollToSection')) {
+      window.scrollTo(0, 0);
+    }
   };
 
   const handleLaunch = () => {

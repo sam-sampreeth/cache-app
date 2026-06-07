@@ -128,7 +128,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Public scrape endpoint — used by the landing page demo (no auth required)
+// Public scrape endpoint - used by the landing page demo (no auth required)
 app.post('/api/scrape', async (req, res) => {
   const { url } = req.body;
   if (!url || !url.trim()) {

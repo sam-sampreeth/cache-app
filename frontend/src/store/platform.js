@@ -1,4 +1,4 @@
-// platform.js — URL → platform detection, labels, colors, thumbnails
+// platform.js - URL → platform detection, labels, colors, thumbnails
 
 export const PLATFORMS = {
   youtube:   { label: 'yt',   name: 'YouTube',      color: 'text-red-400'       },
@@ -34,7 +34,7 @@ export function detectPlatform(url) {
   }
 }
 
-/** Client-side only — no fetch. Returns thumbnail URL or null. */
+/** Client-side only - no fetch. Returns thumbnail URL or null. */
 export function getThumbnail(url, platform) {
   if (platform !== 'youtube' || !url) return null;
   try {
@@ -67,7 +67,7 @@ export function getHostname(url) {
 
 /**
  * Fetch the cover/avatar image for any Spotify URL (album, playlist, artist, track)
- * using Spotify's public oEmbed endpoint — no API key required.
+ * using Spotify's public oEmbed endpoint - no API key required.
  * Returns the thumbnail URL string, or null on failure.
  */
 export async function fetchSpotifyThumbnail(spotifyUrl, signal) {

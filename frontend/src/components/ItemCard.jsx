@@ -189,7 +189,7 @@ function ItemModal({ item, collections, onClose, startInEditMode = false }) {
                     onChange={e => setEditCollection(e.target.value)}
                     className="w-full bg-neutral-950 border border-neutral-700 px-3 py-2 text-xs text-white focus:outline-none focus:border-accent-blue font-sans cursor-pointer"
                   >
-                    <option value="">— uncategorized —</option>
+                    <option value="">- uncategorized -</option>
                     {flatCols.map(c => (
                       <option key={c.id} value={c.id}>
                         {'  '.repeat(c.depth)}{c.name}
@@ -199,7 +199,7 @@ function ItemModal({ item, collections, onClose, startInEditMode = false }) {
                 </div>
               </div>
 
-              {/* Thumbnail URL — for all platforms (YouTube auto-fills, others manual) */}
+              {/* Thumbnail URL - for all platforms (YouTube auto-fills, others manual) */}
               <div>
                 <label className="block mono text-[10px] text-neutral-500 mb-1">Thumbnail URL</label>
                 <input
@@ -364,19 +364,19 @@ function GridCard({ item, collections, onTagClick }) {
         className="relative bg-[#0b0b0d] border border-neutral-800 hover:border-accent-blue transition-colors flex flex-col group cursor-pointer"
         onClick={() => { setShowModal(true); setModalEditMode(false); }}
       >
-        {/* Preview — 16:9 */}
+        {/* Preview - 16:9 */}
         <div className="relative aspect-video bg-neutral-950 overflow-hidden flex-shrink-0">
           {/* Grid background for all non-note cards */}
           {item.type !== 'note' && (
             <div className="absolute inset-0 grid-bg" />
           )}
 
-          {/* Platform badge — top left */}
+          {/* Platform badge - top left */}
           <div className="absolute top-2 left-2 z-10">
             <PlatformBadge type={item.type} />
           </div>
 
-          {/* Pin badge — top right */}
+          {/* Pin badge - top right */}
           <div className="absolute top-2 right-2 z-10">
             {item.pinned ? (
               <button
@@ -473,7 +473,7 @@ function GridCard({ item, collections, onTagClick }) {
             ))}
           </div>
 
-          {/* Date (always visible) — fades on hover to show action buttons */}
+          {/* Date (always visible) - fades on hover to show action buttons */}
           <span className="mono text-[9px] text-neutral-400 flex-shrink-0 group-hover:opacity-0 transition-opacity">
             {formatDate(item.createdAt)}
           </span>
@@ -573,7 +573,7 @@ function ListRow({ item, collections, onTagClick }) {
           </span>
         </div>
 
-        {/* Tags — fixed width, right-justified */}
+        {/* Tags - fixed width, right-justified */}
         <div className="hidden md:flex items-center justify-end gap-2 flex-shrink-0 w-36 overflow-hidden">
           {(item.tags || []).slice(0, 2).map(tag => (
             <button
@@ -586,12 +586,12 @@ function ListRow({ item, collections, onTagClick }) {
           ))}
         </div>
 
-        {/* Date — fixed width */}
+        {/* Date - fixed width */}
         <span className="mono text-[9px] text-neutral-400 hidden sm:block flex-shrink-0 w-24 text-right">
           {formatDate(item.createdAt)}
         </span>
 
-        {/* Actions — fixed width so layout is stable whether ExternalLink shows or not */}
+        {/* Actions - fixed width so layout is stable whether ExternalLink shows or not */}
         <div
           className="flex items-center justify-end gap-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity w-28"
           onClick={e => e.stopPropagation()}

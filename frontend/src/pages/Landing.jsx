@@ -127,6 +127,10 @@ export default function Landing({ onLaunch }) {
             top: offsetPosition,
             behavior: 'smooth'
           });
+          setActiveHighlight(targetSection);
+          setTimeout(() => {
+            setActiveHighlight(null);
+          }, 1500);
         }
       }, 300);
     }
@@ -354,7 +358,7 @@ export default function Landing({ onLaunch }) {
               <div className="border-b border-neutral-700 bg-neutral-900 px-3 py-1.5 flex justify-between items-center text-[10px] text-neutral-500">
                 <span className="flex items-center gap-1.5">
                   <Terminal className="w-3.5 h-3.5 text-accent-blue" />
-                  Vault console
+                  Cache console
                 </span>
                 <span className="flex gap-1.5">
                   <span className="w-2 h-2 bg-neutral-700" />
@@ -390,15 +394,15 @@ export default function Landing({ onLaunch }) {
                   {/* Mock Search Bar */}
                   <div className="border border-neutral-800 bg-neutral-900 px-2 py-1 flex justify-between items-center text-[10px] text-neutral-400">
                     <span>Search items (Press '/' to focus)...</span>
-                    <kbd className="bg-neutral-950 border border-neutral-800 px-1">CTRL+K</kbd>
+                    <kbd className="bg-neutral-950 border border-neutral-800 px-1.5 py-0.5 leading-none">/</kbd>
                   </div>
 
                   {/* Mock Grid Cards */}
                   <div className="grid grid-cols-2 gap-2 text-[9px]">
                     <div className="border border-neutral-700 bg-neutral-900 p-2 flex flex-col justify-between h-28 font-sans">
                       <div>
-                        <div className="flex justify-between text-neutral-500 text-[8px] mb-1 font-mono">
-                          <span>YOUTUBE</span>
+                        <div className="flex justify-between items-center text-neutral-500 text-[8px] mb-1 font-mono">
+                          <Youtube className="w-3.5 h-3.5 text-red-500" />
                           <span>2m ago</span>
                         </div>
                         <div className="font-bold text-neutral-200 line-clamp-1">Lo-Fi Programming Set</div>
@@ -408,8 +412,8 @@ export default function Landing({ onLaunch }) {
                     </div>
                     <div className="border border-neutral-800 bg-neutral-900 p-2 flex flex-col justify-between h-28 font-sans">
                       <div>
-                        <div className="flex justify-between text-neutral-500 text-[8px] mb-1 font-mono">
-                          <span>NOTE</span>
+                        <div className="flex justify-between items-center text-neutral-500 text-[8px] mb-1 font-mono">
+                          <NoteIcon className="w-3.5 h-3.5 text-accent-blue" strokeWidth={2} />
                           <span>1h ago</span>
                         </div>
                         <div className="font-bold text-neutral-200 line-clamp-1">Tailwind brutalist ideas</div>
@@ -510,12 +514,12 @@ export default function Landing({ onLaunch }) {
                 </div>
               ) : (
                 <>
-                  {/* Preview — 16:9, same as GridCard */}
+                  {/* Preview - 16:9, same as GridCard */}
                   <div className="relative aspect-video bg-neutral-950 overflow-hidden flex-shrink-0">
                     {/* Grid background covering the entire aspect-video container */}
                     <div className="absolute inset-0 grid-bg" />
 
-                    {/* Platform badge — top left */}
+                    {/* Platform badge - top left */}
                     <div className="absolute top-2 left-2 z-10">
                       <span className="flex items-center justify-center bg-neutral-950/90 border border-neutral-800/80 p-1">
                         <PlatformIcon type={scrapedResult.platform} />
@@ -687,7 +691,7 @@ export default function Landing({ onLaunch }) {
                 </div>
                 <h3 className="text-sm sm:text-base font-bold text-neutral-200 mt-4 mb-2">Real embedded previews</h3>
                 <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-                  Reels, tweets, videos, tracks, posts — rendered as proper preview cards. Not naked link soup, not raw URLs.
+                  Reels, tweets, videos, tracks, posts - rendered as proper preview cards. Not naked link soup, not raw URLs.
                 </p>
               </div>
             </div>
@@ -701,7 +705,7 @@ export default function Landing({ onLaunch }) {
                 </div>
                 <h3 className="text-sm sm:text-base font-bold text-neutral-200 mt-4 mb-2">Nested collections</h3>
                 <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-                  Folders inside folders. Build your own taxonomy — Entertainment/Anime, Programming/AI/Papers — without fighting the UI.
+                  Folders inside folders. Build your own taxonomy - Entertainment/Anime, Programming/AI/Papers - without fighting the UI.
                 </p>
               </div>
             </div>

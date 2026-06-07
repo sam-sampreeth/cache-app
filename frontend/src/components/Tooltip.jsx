@@ -1,11 +1,11 @@
 /**
- * Tooltip — dark brutalist style, pure CSS, no JS.
+ * Tooltip - dark brutalist style, pure CSS, no JS.
  * Wraps any element and shows a label on hover.
  *
  * Props:
- *   text      — tooltip label
- *   position  — 'bottom' (default) | 'top' | 'left' | 'right'
- *   children  — the element to wrap
+ *   text      - tooltip label
+ *   position  - 'bottom' (default) | 'top' | 'left' | 'right'
+ *   children  - the element to wrap
  */
 export default function Tooltip({ text, children, position = 'bottom' }) {
   const pos = {

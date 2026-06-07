@@ -64,7 +64,7 @@ async function scrapeUrl(url) {
     try {
       const isPost = url.includes('/comments/');
       if (isPost) {
-        // Reddit post — fetch via JSON API
+        // Reddit post - fetch via JSON API
         let jsonUrl = url.split('?')[0];
         if (jsonUrl.endsWith('/')) jsonUrl = jsonUrl.slice(0, -1);
         jsonUrl += '.json';
@@ -83,7 +83,7 @@ async function scrapeUrl(url) {
           }
         }
       } else {
-        // Subreddit listing — fetch subreddit about
+        // Subreddit listing - fetch subreddit about
         const subMatch = url.match(/reddit\.com\/r\/([^/?#]+)/);
         if (subMatch) {
           const subName = subMatch[1];
@@ -105,13 +105,13 @@ async function scrapeUrl(url) {
     }
   }
 
-  // Twitter/X always blocks scraping — return early with a friendly response
+  // Twitter/X always blocks scraping - return early with a friendly response
   if (type === 'x') {
     try {
       const parsedUrl = new URL(url);
       const handle = parsedUrl.pathname.split('/')[1] || 'Twitter';
       title = `@${handle} on X`;
-      description = 'Tweet preview is unavailable — X does not allow content scraping.';
+      description = 'Tweet preview is unavailable - X does not allow content scraping.';
     } catch (_) {
       title = 'X / Twitter';
       description = 'Tweet preview is unavailable.';

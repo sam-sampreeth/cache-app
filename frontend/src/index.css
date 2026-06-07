@@ -16,7 +16,7 @@
   --color-neutral-200: #E4E4E7;
   --color-neutral-100: #F4F4F5;
 
-  /* Accent — blue is the primary accent (user override, no amber) */
+  /* Accent - blue is the primary accent (user override, no amber) */
   --color-accent-blue:   #0055ff;
   --color-accent-orange: #FF5C00;
   --color-accent-info:   #00E0FF;
@@ -52,7 +52,7 @@ body {
   font-feature-settings: "zero", "ss01";
 }
 
-/* 32px grid background — used in card preview areas */
+/* 32px grid background - used in card preview areas */
 .grid-bg {
   background-size: 32px 32px;
   background-image:
