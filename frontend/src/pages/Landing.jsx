@@ -326,7 +326,7 @@ export default function Landing({ onLaunch }) {
                 Index the chaotic web.
               </h1>
               <p className="text-sm text-neutral-400 leading-relaxed max-w-md font-sans">
-                A personal quick-access internet vault for saving, organizing, and retrieving links, rich embeds, and plain-text notes. Built for power-users who live online. No cookies tracker, no heavy assets, pure speed.
+                A personal quick-access internet vault for saving, organizing, and retrieving links, rich embeds, and plain-text notes. Built for power-users who live online. Essential cookies only, no trackers, no heavy assets, pure speed.
               </p>
             </div>
 

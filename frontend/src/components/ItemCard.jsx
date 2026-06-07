@@ -227,7 +227,7 @@ function ItemModal({ item, collections, onClose, startInEditMode = false }) {
               {/* URL block */}
               {item.url && (
                 <div className="bg-neutral-950 border border-neutral-800 px-3 py-2.5">
-                  <span className="mono text-[9px] text-neutral-600 block mb-1">URL</span>
+                  <span className="mono text-[9px] text-neutral-400 block mb-1">URL</span>
                   <a
                     href={item.url}
                     target="_blank"
@@ -249,7 +249,7 @@ function ItemModal({ item, collections, onClose, startInEditMode = false }) {
               {/* Description */}
               {item.description && item.type !== 'note' && (
                 <div>
-                  <span className="mono text-[9px] text-neutral-600 block mb-1">Description</span>
+                  <span className="mono text-[9px] text-neutral-400 block mb-1">Description</span>
                   <p className="text-sm text-neutral-200 leading-relaxed whitespace-pre-wrap font-sans">
                     {item.description}
                   </p>
@@ -259,7 +259,7 @@ function ItemModal({ item, collections, onClose, startInEditMode = false }) {
               {/* Note */}
               {item.note && (
                 <div className="bg-neutral-950 border border-neutral-800 px-3 py-3">
-                  <span className="mono text-[9px] text-neutral-600 block mb-1.5">Note</span>
+                  <span className="mono text-[9px] text-neutral-400 block mb-1.5">Note</span>
                   <p className="text-sm text-neutral-100 leading-relaxed whitespace-pre-wrap font-sans">
                     {item.note}
                   </p>

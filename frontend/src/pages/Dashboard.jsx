@@ -21,7 +21,7 @@ function EmptyState({ hasFilters }) {
       <p className="text-sm text-neutral-400 max-w-sm leading-relaxed font-sans">
         {hasFilters
           ? 'No items match the current filters. Try clearing your search or selecting a different collection.'
-          : 'Paste a link in the quick-add bar above, or write a plain note. Everything you save lives here - local-only, no sign-in.'}
+          : 'Paste a link in the quick-add bar above, or write a plain note. Everything you save lives here, synced to your workspace.'}
       </p>
     </div>
   );
