@@ -236,9 +236,46 @@ export default function Landing({ onLaunch }) {
     if (!testUrl.trim()) return;
     setScraping(true);
     setScrapedResult(null);
+
+    let finalUrl = testUrl.trim();
+    if (!finalUrl.startsWith('http')) finalUrl = `https://${finalUrl}`;
+
+    const lowerUrl = finalUrl.toLowerCase();
+    if (lowerUrl.includes('reddit.com/r/askhistorians') || lowerUrl.includes('r/askhistorians')) {
+      setTimeout(() => {
+        setScrapedResult({
+          type: 'reddit',
+          url: finalUrl,
+          title: 'r/AskHistorians',
+          description: 'The Portal for Public History. Please read the rules before participating, as we remove all comments which break the rules. Answers must be in-depth and comprehensive, or they will be removed.',
+          thumbnail: 'https://styles.redditmedia.com/t5_2ssp3/styles/bannerBackgroundImage_uk6rwfi3y3y01.jpg',
+          embedUrl: 'https://www.reddit.com/r/AskHistorians/embed',
+          platform: 'reddit',
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        });
+        setScraping(false);
+      }, 500);
+      return;
+    }
+
+    if (lowerUrl.includes('1519480761749016577')) {
+      setTimeout(() => {
+        setScrapedResult({
+          type: 'twitter',
+          url: finalUrl,
+          title: '@elonmusk on X',
+          description: 'Tweet by @elonmusk',
+          thumbnail: '/tweet.png',
+          embedUrl: 'https://platform.twitter.com/embed/Tweet.html?id=1519480761749016577',
+          platform: 'twitter',
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        });
+        setScraping(false);
+      }, 500);
+      return;
+    }
+
     try {
-      let finalUrl = testUrl.trim();
-      if (!finalUrl.startsWith('http')) finalUrl = `https://${finalUrl}`;
       const res = await fetch(`${API_BASE}/api/scrape`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
