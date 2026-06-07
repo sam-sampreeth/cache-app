@@ -63,7 +63,14 @@ export default function Landing({ onLaunch }) {
   const toast = useToast();
 
   // Auth States
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(() => {
+    const shouldOpen = storage.get('openLogin') === 'true';
+    if (shouldOpen) {
+      storage.remove('openLogin');
+      return true;
+    }
+    return false;
+  });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -104,6 +111,25 @@ export default function Landing({ onLaunch }) {
       setSuggestionIndex((prev) => (prev + 1) % SUGGESTIONS.length);
     }, 10000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const targetSection = storage.get('scrollToSection');
+    if (targetSection) {
+      storage.remove('scrollToSection');
+      setTimeout(() => {
+        const element = document.getElementById(targetSection);
+        if (element) {
+          const navbarHeight = 64;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - navbarHeight;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 300);
+    }
   }, []);
 
   const handleLaunchWithDelay = () => {
@@ -174,6 +200,12 @@ export default function Landing({ onLaunch }) {
     
     if (targetId === '/') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (targetId === 'privacy') {
+      window.history.pushState({}, '', '/privacy');
+      window.dispatchEvent(new PopStateEvent('popstate'));
       return;
     }
 
@@ -787,6 +819,15 @@ export default function Landing({ onLaunch }) {
                       className="hover:text-white hover:underline transition-all"
                     >
                       Features
+                    </a>
+                  </li>
+                  <li>
+                    <a 
+                      href="/privacy" 
+                      onClick={(e) => handleLinkClick(e, 'privacy')}
+                      className="hover:text-white hover:underline transition-all"
+                    >
+                      Privacy Policy
                     </a>
                   </li>
                   <li>

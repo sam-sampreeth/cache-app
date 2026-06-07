@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
+import NotFound from './pages/NotFound';
+import Privacy from './pages/Privacy';
 import { vault, storage } from './store/vault';
 import { ToastProvider } from './components/Toast';
 
@@ -11,7 +13,10 @@ export default function App() {
   });
 
   useEffect(() => {
-    const handlePop = () => setCurrentPath(window.location.pathname);
+    const handlePop = () => {
+      setCurrentPath(window.location.pathname);
+      window.scrollTo(0, 0);
+    };
     window.addEventListener('popstate', handlePop);
     return () => window.removeEventListener('popstate', handlePop);
   }, []);
@@ -19,6 +24,7 @@ export default function App() {
   const navigateTo = (path) => {
     window.history.pushState({}, '', path);
     setCurrentPath(path);
+    window.scrollTo(0, 0);
   };
 
   const handleLaunch = () => {
@@ -41,10 +47,17 @@ export default function App() {
 
   return (
     <ToastProvider>
-      {currentPath === '/app'
-        ? <Dashboard onExit={handleExit} />
-        : <Landing onLaunch={handleLaunch} />
-      }
+      {(() => {
+        if (currentPath === '/app') {
+          return <Dashboard onExit={handleExit} />;
+        } else if (currentPath === '/' || currentPath === '/index.html') {
+          return <Landing onLaunch={handleLaunch} />;
+        } else if (currentPath === '/privacy' || currentPath === '/privacy-policy') {
+          return <Privacy onNavigate={navigateTo} />;
+        } else {
+          return <NotFound onNavigate={navigateTo} />;
+        }
+      })()}
 
       {!cookieConsent && (
         <div className="fixed bottom-5 left-5 z-[9998] bg-neutral-900 border border-neutral-700 p-4 max-w-sm flex flex-col gap-3 shadow-2xl">
