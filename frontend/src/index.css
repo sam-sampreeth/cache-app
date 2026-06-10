@@ -113,3 +113,39 @@ body {
     linear-gradient(135deg, #0d0d0e 0%, #1c1c1f 100%);
 }
 
+/* ─── Font size scaling override for Dashboard Sidebar (2 steps larger) ────── */
+.dashboard-sidebar-scaled {
+  font-size: 1.25rem;
+}
+.dashboard-sidebar-scaled .text-\[8px\] { font-size: 10px !important; }
+.dashboard-sidebar-scaled .text-\[9px\] { font-size: 11px !important; }
+.dashboard-sidebar-scaled .text-\[10px\] { font-size: 12px !important; }
+.dashboard-sidebar-scaled .text-\[11px\] { font-size: 14px !important; }
+.dashboard-sidebar-scaled .text-xs { font-size: 1rem !important; line-height: 1.5rem !important; }
+.dashboard-sidebar-scaled .text-sm { font-size: 1.125rem !important; line-height: 1.75rem !important; }
+.dashboard-sidebar-scaled .text-base { font-size: 1.25rem !important; line-height: 1.75rem !important; }
+.dashboard-sidebar-scaled .text-lg { font-size: 1.5rem !important; line-height: 2rem !important; }
+.dashboard-sidebar-scaled .text-xl { font-size: 1.875rem !important; line-height: 2.25rem !important; }
+.dashboard-sidebar-scaled .text-2xl { font-size: 2.25rem !important; line-height: 2.5rem !important; }
+
+/* ─── Font size scaling override for Dashboard Content (1 step larger) ─────── */
+.dashboard-content-scaled {
+  font-size: 1.125rem;
+}
+.dashboard-content-scaled .text-\[8px\] { font-size: 9px !important; }
+.dashboard-content-scaled .text-\[9px\] { font-size: 10px !important; }
+.dashboard-content-scaled .text-\[10px\] { font-size: 11px !important; }
+.dashboard-content-scaled .text-\[11px\] { font-size: 12px !important; }
+.dashboard-content-scaled .text-xs { font-size: 0.875rem !important; line-height: 1.25rem !important; }
+.dashboard-content-scaled .text-sm { font-size: 1rem !important; line-height: 1.5rem !important; }
+.dashboard-content-scaled .text-base { font-size: 1.125rem !important; line-height: 1.75rem !important; }
+.dashboard-content-scaled .text-lg { font-size: 1.25rem !important; line-height: 1.75rem !important; }
+.dashboard-content-scaled .text-xl { font-size: 1.5rem !important; line-height: 2rem !important; }
+.dashboard-content-scaled .text-2xl { font-size: 1.875rem !important; line-height: 2.25rem !important; }
+
+/* Scale toasts and cookie consent when dashboard content scaling is active */
+body:has(.dashboard-content-scaled) .text-\[11px\] { font-size: 12px !important; }
+body:has(.dashboard-content-scaled) .text-\[10px\] { font-size: 11px !important; }
+body:has(.dashboard-content-scaled) .text-\[9px\] { font-size: 10px !important; }
+
+

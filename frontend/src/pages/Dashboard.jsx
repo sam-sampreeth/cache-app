@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useSyncExternalStore } from 'react';
-import { Search, Grid, List, X, LogOut, RotateCcw } from 'lucide-react';
+import { Search, Grid, List, X, LogOut, RotateCcw, Database } from 'lucide-react';
 import { vault, storage } from '../store/vault';
 import { fetchSpotifyThumbnail } from '../store/platform';
 import QuickAdd from '../components/QuickAdd';
@@ -166,7 +166,7 @@ export default function Dashboard({ onExit }) {
       {/* ═══ LOGIN TOAST ════════════════════════════════════════════════════ */}
 
       {/* ═══ SIDEBAR ════════════════════════════════════════════════════════ */}
-      <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-neutral-800 bg-neutral-950 flex flex-col md:h-full flex-shrink-0 overflow-y-auto">
+      <aside className="dashboard-sidebar-scaled w-full md:w-64 border-b md:border-b-0 md:border-r border-neutral-800 bg-neutral-950 flex flex-col md:h-full flex-shrink-0 overflow-y-auto">
 
         {/* Brand */}
         <div className="border-b border-neutral-800 flex-shrink-0">
@@ -264,7 +264,7 @@ export default function Dashboard({ onExit }) {
       </aside>
 
       {/* ═══ MAIN ═══════════════════════════════════════════════════════════ */}
-      <main className="flex-1 flex flex-col min-h-screen md:min-h-0 md:h-full">
+      <main className="dashboard-content-scaled flex-1 flex flex-col min-h-screen md:min-h-0 md:h-full">
 
         {/* Topbar - sticky */}
         <header className="sticky top-0 z-20 bg-[#070708] border-b border-neutral-800 flex-shrink-0">
@@ -294,6 +294,15 @@ export default function Dashboard({ onExit }) {
 
             {/* Right controls */}
             <div className="flex items-center gap-3 flex-shrink-0">
+              {/* Backups */}
+              <Tooltip text="Backup" position="bottom">
+                <button
+                  onClick={() => toast('Coming soon.', 'info')}
+                  className="p-2 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700 bg-neutral-900/30 flex items-center justify-center cursor-pointer select-none transition-all"
+                >
+                  <Database className="w-3.5 h-3.5" />
+                </button>
+              </Tooltip>
               <span className="mono text-[10px] text-neutral-400 hidden sm:block tabular-nums">
                 {String(filtered.length).padStart(3, '0')} items
               </span>
@@ -323,6 +332,7 @@ export default function Dashboard({ onExit }) {
             <QuickAdd
               collections={collections}
               onAdd={vault.addItem.bind(vault)}
+              onAddCollection={vault.addCollection.bind(vault)}
               activeCollectionId={activeCollectionId}
             />
           </div>

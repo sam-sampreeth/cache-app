@@ -39,6 +39,18 @@ function flattenCollections(cols, parentId = null, depth = 0) {
     .flatMap(c => [{ ...c, depth }, ...flattenCollections(cols, c.id, depth + 1)]);
 }
 
+function getCollectionPath(cols, col) {
+  const path = [col.name];
+  let current = col;
+  while (current.parentId) {
+    const parent = cols.find(c => c.id === current.parentId);
+    if (!parent) break;
+    path.unshift(parent.name);
+    current = parent;
+  }
+  return path.join(' / ');
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 // Detail / Edit Modal
 // ═══════════════════════════════════════════════════════════════════════════
@@ -56,6 +68,24 @@ function ItemModal({ item, collections, onClose, startInEditMode = false }) {
   const Icon          = BRAND_ICON[item.type] ?? Globe;
   const flatCols      = flattenCollections(collections);
   const currentCol    = collections.find(c => c.id === item.collectionId);
+
+  const [isCreatingCollection, setIsCreatingCollection] = useState(false);
+  const [newCollectionName,    setNewCollectionName]    = useState('');
+
+  const handleCreateCollection = async () => {
+    const name = newCollectionName.trim();
+    if (!name) return;
+    try {
+      const newCol = await vault.addCollection(name, null);
+      setIsCreatingCollection(false);
+      setNewCollectionName('');
+      if (newCol && newCol.id) {
+        setEditCollection(newCol.id);
+      }
+    } catch (err) {
+      toast('Failed to create collection', 'default');
+    }
+  };
 
   // Close on Escape
   useEffect(() => {
@@ -184,18 +214,68 @@ function ItemModal({ item, collections, onClose, startInEditMode = false }) {
                 </div>
                 <div>
                   <label className="block mono text-[10px] text-neutral-500 mb-1">Collection</label>
-                  <select
-                    value={editCollection}
-                    onChange={e => setEditCollection(e.target.value)}
-                    className="w-full bg-neutral-950 border border-neutral-700 px-3 py-2 text-xs text-white focus:outline-none focus:border-accent-blue font-sans cursor-pointer"
-                  >
-                    <option value="">- uncategorized -</option>
-                    {flatCols.map(c => (
-                      <option key={c.id} value={c.id}>
-                        {'  '.repeat(c.depth)}{c.name}
-                      </option>
-                    ))}
-                  </select>
+                  {isCreatingCollection ? (
+                    <div className="flex items-center gap-1.5 bg-neutral-950 border border-neutral-700 px-3 py-1.5 w-full">
+                      <input
+                        type="text"
+                        placeholder="New collection..."
+                        value={newCollectionName}
+                        onChange={e => setNewCollectionName(e.target.value)}
+                        className="bg-transparent text-xs text-white focus:outline-none font-sans flex-1"
+                        autoFocus
+                        onKeyDown={async e => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            await handleCreateCollection();
+                          } else if (e.key === 'Escape') {
+                            e.preventDefault();
+                            setIsCreatingCollection(false);
+                            setNewCollectionName('');
+                            setEditCollection(item.collectionId || '');
+                          }
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={handleCreateCollection}
+                        className="text-[10px] text-accent-blue hover:text-white font-mono cursor-pointer px-1 py-0.5"
+                      >
+                        ok
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsCreatingCollection(false);
+                          setNewCollectionName('');
+                          setEditCollection(item.collectionId || '');
+                        }}
+                        className="text-[10px] text-neutral-500 hover:text-neutral-300 font-mono cursor-pointer px-1 py-0.5"
+                      >
+                        esc
+                      </button>
+                    </div>
+                  ) : (
+                    <select
+                      value={editCollection}
+                      onChange={e => {
+                        if (e.target.value === 'new_collection') {
+                          setIsCreatingCollection(true);
+                          setNewCollectionName('');
+                        } else {
+                          setEditCollection(e.target.value);
+                        }
+                      }}
+                      className="w-full bg-neutral-950 border border-neutral-700 px-3 py-2 text-xs text-white focus:outline-none focus:border-accent-blue font-sans cursor-pointer"
+                    >
+                      <option value="">- uncategorized -</option>
+                      {flatCols.map(c => (
+                        <option key={c.id} value={c.id}>
+                          {getCollectionPath(collections, c)}
+                        </option>
+                      ))}
+                      <option value="new_collection">+ new collection...</option>
+                    </select>
+                  )}
                 </div>
               </div>
 

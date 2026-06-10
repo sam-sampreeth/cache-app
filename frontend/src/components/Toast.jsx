@@ -36,6 +36,7 @@ export function ToastProvider({ children }) {
                 toast.type === 'delete' ? 'bg-red-500' :
                 toast.type === 'add'    ? 'bg-accent-blue' :
                 toast.type === 'success'? 'bg-green-500' :
+                toast.type === 'info'   ? 'bg-accent-info' :
                 'bg-neutral-500'
               }`}
             />

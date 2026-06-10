@@ -81,7 +81,11 @@ const Workspace = {
 const Collection = {
   find: async (query) => {
     if (shouldUseMemory(query)) {
-      return collections.filter(c => c.workspaceId === query.workspaceId);
+      let filtered = collections.filter(c => c.workspaceId === query.workspaceId);
+      if (query.parentCollectionId !== undefined) {
+        filtered = filtered.filter(c => c.parentCollectionId === query.parentCollectionId);
+      }
+      return filtered;
     }
     return CollectionModel.find(query);
   },

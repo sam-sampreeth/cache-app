@@ -345,21 +345,44 @@ export const vault = {
 
   async addCollection(name, parentId = null) {
     try {
-      const newCol = await apiFetch('/api/collections', {
-        method: 'POST',
-        body: JSON.stringify({
-          name,
-          parentCollectionId: parentId
-        })
-      });
+      const parts = name.split('/').map(p => p.trim()).filter(Boolean);
+      if (parts.length === 0) {
+        throw new Error('Collection name cannot be empty');
+      }
 
-      const mapped = mapCollection(newCol);
-      state = {
-        ...state,
-        collections: [...state.collections, mapped]
-      };
-      notify();
-      return mapped;
+      let currentParentId = parentId;
+      let lastCreatedCol = null;
+
+      for (const part of parts) {
+        const existing = state.collections.find(
+          c => c.name.toLowerCase() === part.toLowerCase() && c.parentId === currentParentId
+        );
+
+        if (existing) {
+          currentParentId = existing.id;
+          lastCreatedCol = existing;
+        } else {
+          const newCol = await apiFetch('/api/collections', {
+            method: 'POST',
+            body: JSON.stringify({
+              name: part,
+              parentCollectionId: currentParentId
+            })
+          });
+
+          const mapped = mapCollection(newCol);
+          state = {
+            ...state,
+            collections: [...state.collections, mapped]
+          };
+          notify();
+
+          currentParentId = mapped.id;
+          lastCreatedCol = mapped;
+        }
+      }
+
+      return lastCreatedCol;
     } catch (e) {
       console.error('Failed to add collection:', e.message);
       throw e;

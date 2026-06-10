@@ -21,6 +21,18 @@ function flattenCollections(cols, parentId = null, depth = 0) {
     .flatMap(c => [{ ...c, depth }, ...flattenCollections(cols, c.id, depth + 1)]);
 }
 
+function getCollectionPath(cols, col) {
+  const path = [col.name];
+  let current = col;
+  while (current.parentId) {
+    const parent = cols.find(c => c.id === current.parentId);
+    if (!parent) break;
+    path.unshift(parent.name);
+    current = parent;
+  }
+  return path.join(' / ');
+}
+
 function renderPlatformIcon(type) {
   const className = "w-3.5 h-3.5 flex-shrink-0";
   switch (type) {
@@ -36,7 +48,7 @@ function renderPlatformIcon(type) {
   }
 }
 
-export default function QuickAdd({ collections, onAdd, activeCollectionId }) {
+export default function QuickAdd({ collections, onAdd, onAddCollection, activeCollectionId }) {
   const toast = useToast();
   const [isExpanded,   setIsExpanded]   = useState(false);
   const [url,          setUrl]          = useState('');
@@ -46,6 +58,23 @@ export default function QuickAdd({ collections, onAdd, activeCollectionId }) {
   const [thumbnail,    setThumbnail]    = useState('');
   const [collectionId, setCollectionId] = useState('');
   const [isLoading,    setIsLoading]    = useState(false);
+  const [isCreatingCollection, setIsCreatingCollection] = useState(false);
+  const [newCollectionName,    setNewCollectionName]    = useState('');
+
+  const handleCreateCollection = async () => {
+    const name = newCollectionName.trim();
+    if (!name) return;
+    try {
+      const newCol = await onAddCollection(name, null);
+      setIsCreatingCollection(false);
+      setNewCollectionName('');
+      if (newCol && newCol.id) {
+        setCollectionId(newCol.id);
+      }
+    } catch (err) {
+      toast('Failed to create collection', 'default');
+    }
+  };
 
   // Sync active collection into the form
   useEffect(() => {
@@ -205,18 +234,68 @@ export default function QuickAdd({ collections, onAdd, activeCollectionId }) {
           />
         </div>
 
-        <select
-          value={collectionId}
-          onChange={e => setCollectionId(e.target.value)}
-          className="bg-neutral-900 border border-neutral-700 text-xs text-neutral-300 px-2 py-1 focus:outline-none font-sans cursor-pointer max-w-[160px] truncate"
-        >
-          <option value="">uncategorized</option>
-          {flatCollections.map(c => (
-            <option key={c.id} value={c.id}>
-              {'  '.repeat(c.depth)}{c.name}
-            </option>
-          ))}
-        </select>
+        {isCreatingCollection ? (
+          <div className="flex items-center gap-1.5 bg-neutral-900 border border-neutral-700 px-1.5 py-0.5 w-[240px]">
+            <input
+              type="text"
+              placeholder="New collection..."
+              value={newCollectionName}
+              onChange={e => setNewCollectionName(e.target.value)}
+              className="bg-transparent text-xs text-white focus:outline-none font-sans flex-1 min-w-0"
+              autoFocus
+              onKeyDown={async e => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  await handleCreateCollection();
+                } else if (e.key === 'Escape') {
+                  e.preventDefault();
+                  setIsCreatingCollection(false);
+                  setNewCollectionName('');
+                  setCollectionId('');
+                }
+              }}
+            />
+            <button
+              type="button"
+              onClick={handleCreateCollection}
+              className="text-[10px] text-accent-blue hover:text-white font-mono cursor-pointer px-1 py-0.5"
+            >
+              ok
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsCreatingCollection(false);
+                setNewCollectionName('');
+                setCollectionId('');
+              }}
+              className="text-[10px] text-neutral-500 hover:text-neutral-300 font-mono cursor-pointer px-1 py-0.5"
+            >
+              esc
+            </button>
+          </div>
+        ) : (
+          <select
+            value={collectionId}
+            onChange={e => {
+              if (e.target.value === 'new_collection') {
+                setIsCreatingCollection(true);
+                setNewCollectionName('');
+              } else {
+                setCollectionId(e.target.value);
+              }
+            }}
+            className="bg-neutral-900 border border-neutral-700 text-xs text-neutral-300 px-2 py-1 focus:outline-none font-sans cursor-pointer max-w-[160px] truncate"
+          >
+            <option value="">uncategorized</option>
+            {flatCollections.map(c => (
+              <option key={c.id} value={c.id}>
+                {getCollectionPath(collections, c)}
+              </option>
+            ))}
+            <option value="new_collection">+ new collection...</option>
+          </select>
+        )}
 
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
