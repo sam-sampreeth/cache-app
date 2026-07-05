@@ -5,21 +5,32 @@ Cache is a personal digital archiving system. It lets you save, organize, and re
 The live application is hosted at:
 https://cache.sampreeth.in
 
+## Codebase Structure
+
+```text
+├── .github/workflows/    # Database backup workflows
+├── backend/              # Node.js Express server, Mongoose models, and API routes
+├── frontend/             # React app, Tailwind CSS, and state management
+├── backups/              # Automated database backup location
+└── scripts/              # Backup execution scripts
+```
+
 ## Features
 
 - Quick-add links and notes: Paste a URL or write a note directly into the dashboard.
-- Auto-parsing: The backend automatically scrapes metadata and titles for added links.
+- Auto-parsing: The backend scraper extracts metadata and titles for added links.
 - Interactive previews: Previews for YouTube, Spotify, Reddit, and Instagram items are rendered directly.
 - Hierarchical collections: Organize items inside folders and subfolders.
 - Tag indexing: Categorize items using tags and filter them instantly.
 - Global search: Search by title, tag, note, description, or URL.
 - Responsive design: Brutalist styled interface that scales well across mobile and desktop devices.
-- Local and session storage: Respects your privacy and subdomain workspace limits by grouping settings under a single namespace.
+- Local and session storage: Group settings under a single namespace for privacy and workspace boundary constraints.
+- Automated backups: A backup workflow to commit database snapshots directly to the repository.
 
 ## Tech Stack
 
-- Frontend: React (Vite), Tailwind CSS (for layout utility classes), and Lucide React (for icons).
-- Backend: Node.js, Express, and MongoDB (via Mongoose). Operates in an in-memory mock database mode when no database URI is supplied.
+- Frontend: React 19, Vite 8, Tailwind CSS v4, and Lucide React.
+- Backend: Node.js, Express, and MongoDB (via Mongoose). Can also run in a zero-dependency in-memory mock database mode when no database URI is supplied.
 
 ## Installation
 
@@ -70,3 +81,12 @@ You need Node.js and npm installed on your system.
    npm run dev
    ```
    Open `http://localhost:5173` in your browser.
+
+## Database Backups
+
+The project includes a GitHub Actions workflow that runs database backups on the 1st of every month (or manually via workflow dispatch). The backup script dumps non-demo collections to `backups/backup.json` and commits it to the repository.
+
+To configure backups:
+1. Go to repository Settings on GitHub.
+2. Select Settings > Secrets and variables > Actions.
+3. Add a Repository secret named `MONGODB_URI` containing your database connection string.
